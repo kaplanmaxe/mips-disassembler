@@ -40,14 +40,25 @@ string Disassembler::getOpcodeBitString(string instruction) {
     return instruction.substr(0, 6);
 }
 
+int Disassembler::getFormat(string machineCode) {
+    int opcodeDec = i->binaryToDecimal(machineCode.substr(0, 6), 5);
+    if (opcodeDec == 0) {
+        return Format::r;
+    }
+}
+
 string Disassembler::disassemble(string machineCode) {
     string assembly;
     string opcodeBits = getOpcodeBitString(machineCode);
-    int opcodeDec = i.binaryToDecimal(opcodeBits, 6);
+    Instruction inst;
+    i = &inst;
+    int opcodeDec = i->binaryToDecimal(opcodeBits, 6);
     Opcode opcode = getOpcode(opcodeDec);
     if (opcode.format == "i") {
-        i.setOpcode(opcode.op);
-        assembly = i.parseInstruction(machineCode);
+        IInstruction iinst;
+        i = &iinst;
+        i->setOpcode(opcode.op);
+        assembly = i->parseInstruction(machineCode);
     }
     return assembly;
 }

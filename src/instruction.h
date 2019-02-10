@@ -9,27 +9,23 @@ using namespace std;
 
 class Instruction {
     public:
-        void parseInstruction(string machineCode);
-        // virtual void printInstruction();
-        
         Register reg;
-        string format;
-        
-        string funct;
+
         int binaryToDecimal(string bits, int size);
-        void setRS(string);
-        void setRT(string);
-        void setOpcode(string);
         string getOpcode();
         string getRS();
         string getRT();
+        void setRS(string);
+        void setRT(string);
+        void setOpcode(string);
+        virtual string parseInstruction(string machineCode) {
+            return "";
+        };
     
     private:
         string opcode;
         string rs;
         string rt;
-        string rd;
-        int shamt;
 };
 
 class IInstruction: public Instruction {
@@ -37,8 +33,23 @@ class IInstruction: public Instruction {
         string parseInstruction(string machineCode);
         void setImmediate(int);
         int getImmediate();
-        // void printInstruction();
-        // IInstruction();
+
     private:
         int immediate;
+};
+
+class RInstruction: public Instruction {
+    public:
+        string parseInstruction(string machineCode);
+        string getRD();
+        string getShamt();
+        string getFunct();
+        void setRD(string);
+        void setShamt(int);
+        void setFunct(string);
+    
+    private:
+        string rd;
+        int shamt;
+        string funct;
 };

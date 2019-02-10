@@ -5,23 +5,29 @@
 
 using namespace std;
 
-struct Opcode {
+struct Opcode
+{
     string format;
     string op;
 };
 
-class Disassembler {
-    public:
-        Disassembler();
-        string disassemble(string);
-        IInstruction i;
+enum Format {
+    r, i, j
+};
 
-    protected:
-        
-        map<int, Opcode> opcodes;
-        void populateOpcodes();
-        int binaryToDecimal(string bitString, int size);
-        string getOpcodeBitString(string instruction);
-        Opcode getOpcode(int opcode);
-        Opcode makeOpcode(string format, string op);
+class Disassembler
+{
+  public:
+    Disassembler();
+    string disassemble(string);
+    Instruction *i;
+
+  protected:
+    map<int, Opcode> opcodes;
+    void populateOpcodes();
+    int binaryToDecimal(string bitString, int size);
+    string getOpcodeBitString(string instruction);
+    Opcode getOpcode(int opcode);
+    Opcode makeOpcode(string format, string op);
+    int getFormat(string);
 };

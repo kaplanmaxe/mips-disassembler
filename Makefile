@@ -22,7 +22,8 @@ out/%.o: src/%.cpp
 	$(CC) $(OPTS) -c $< $(INCS) -o $@
 
 clean:
-	rm $(PROJECT) out -Rf
+	rm -rf out/
+	rm $(PROJECT)
 
 buildrepo:
 	mkdir -p out
