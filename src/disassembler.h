@@ -1,7 +1,9 @@
 
 #include <map>
 #include <string>
-#include "instruction.h"
+#include "iinstruction.h"
+#include "jinstruction.h"
+#include "rinstruction.h"
 
 using namespace std;
 
@@ -18,7 +20,6 @@ enum Format {
 class Disassembler
 {
   public:
-    // Disassembler();
     string disassemble(string);
     Instruction *i;
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include "register.h"
+#pragma once
 
 using namespace std;
 
@@ -46,23 +47,4 @@ class Instruction {
         int immediate;
         int address;
         int shamt;
-};
-
-class IInstruction: public Instruction {
-    public:
-        string parseInstruction(string machineCode);
-        string formMemoryInstruction();
-        string formBranchInstruction();
-        string formImmediateInstruction();
-        
-};
-
-class JInstruction: public Instruction {
-    public:
-        string parseInstruction(string);
-};
-
-class RInstruction: public Instruction {
-    public:
-        string parseInstruction(string machineCode);
 };
