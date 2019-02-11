@@ -40,7 +40,6 @@ int Instruction::binaryToDecimal(string bits, bool signedInt) {
         if (bits[0] == '1') {
             negative = true;
             twosComplementToUnsigned(&bits);
-            printf("bits: %s\n", bits.c_str());
         }
     }
     
