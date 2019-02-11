@@ -11,45 +11,58 @@ class Instruction {
     public:
         Register reg;
 
-        int binaryToDecimal(string bits, int size);
-        string getOpcode();
+        Instruction();
+        int binaryToDecimal(string, int);
+        string getOperationFromMap(string, int);
+
+        string getOperation();
         string getRS();
         string getRT();
+        string getRD();
+        int getShamt();
+        string getFunct();
+        int getImmediate();
+        int getAddress();
+
+        void setOperation(string);
         void setRS(string);
         void setRT(string);
-        void setOpcode(string);
-        virtual string parseInstruction(string machineCode) {
+        void setRD(string);
+        void setShamt(int);
+        void setFunct(string);
+        void setImmediate(int);
+        void setAddress(int);
+        virtual string parseInstruction(string) {
             return "";
         };
     
     private:
-        string opcode;
+        map<string, map<int, string>> operations;
+        string operation;
         string rs;
         string rt;
+        string rd;
+        string funct;
+        int immediate;
+        int address;
+        int shamt;
 };
 
 class IInstruction: public Instruction {
     public:
         string parseInstruction(string machineCode);
-        void setImmediate(int);
-        int getImmediate();
+        string formMemoryInstruction();
+        string formBranchInstruction();
+        string formImmediateInstruction();
+        
+};
 
-    private:
-        int immediate;
+class JInstruction: public Instruction {
+    public:
+        string parseInstruction(string);
 };
 
 class RInstruction: public Instruction {
     public:
         string parseInstruction(string machineCode);
-        string getRD();
-        string getShamt();
-        string getFunct();
-        void setRD(string);
-        void setShamt(int);
-        void setFunct(string);
-    
-    private:
-        string rd;
-        int shamt;
-        string funct;
 };

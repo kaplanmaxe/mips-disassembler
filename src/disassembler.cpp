@@ -1,64 +1,36 @@
 #include "disassembler.h"
 
-Disassembler::Disassembler() {
-    populateOpcodes();
-}
-
-// addi, addiu, andi, beq, bne, lbu, lhu, ll, lui, lw, ori, slti, sltiu, sb, sc, sh, sw
-void Disassembler::populateOpcodes() {
-    opcodes[0] = makeOpcode("r", "special");
-    opcodes[4] = makeOpcode("i", "beq");
-    opcodes[5] = makeOpcode("i", "bne");
-    opcodes[8] = makeOpcode("i", "addi");
-    opcodes[9] = makeOpcode("i", "addiu");
-    opcodes[10] = makeOpcode("i", "slti");
-    opcodes[11] = makeOpcode("i", "sltiu");
-    opcodes[12] = makeOpcode("i", "andi");
-    opcodes[13] = makeOpcode("i", "ori");
-    opcodes[15] = makeOpcode("i", "lui");
-    opcodes[35] = makeOpcode("i", "lw");
-    opcodes[36] = makeOpcode("i", "lbu");
-    opcodes[37] = makeOpcode("i", "lhu");
-    opcodes[40] = makeOpcode("i", "sb");
-    opcodes[41] = makeOpcode("i", "sh");
-    opcodes[43] = makeOpcode("i", "sw");
-    opcodes[48] = makeOpcode("i", "ll");
-    opcodes[56] = makeOpcode("i", "sc");   
-}
-
-// Factory for creating Opcode
-Opcode Disassembler::makeOpcode(string format, string op) {
-    Opcode opcode = { format, op };
-    return opcode;
-}
-
-Opcode Disassembler::getOpcode(int opcode) {
-    return opcodes.at(opcode);
-}
-
-string Disassembler::getOpcodeBitString(string instruction) {
-    return instruction.substr(0, 6);
-}
-
 int Disassembler::getFormat(string machineCode) {
-    int opcodeDec = i->binaryToDecimal(machineCode.substr(0, 6), 5);
+    int opcodeDec = i->binaryToDecimal(machineCode.substr(0, 6), 6);
     if (opcodeDec == 0) {
         return Format::r;
+    } else if (opcodeDec == 2 || opcodeDec == 3) {
+        return Format::j;
+    } else {
+        // This is a broad assumption but for now assume i format
+        // TODO: more careful checking
+        return Format::i;
     }
 }
 
 string Disassembler::disassemble(string machineCode) {
     string assembly;
-    string opcodeBits = getOpcodeBitString(machineCode);
     Instruction inst;
     i = &inst;
-    int opcodeDec = i->binaryToDecimal(opcodeBits, 6);
-    Opcode opcode = getOpcode(opcodeDec);
-    if (opcode.format == "i") {
+    int format = getFormat(machineCode);
+    if (format == Format::i) {
         IInstruction iinst;
         i = &iinst;
-        i->setOpcode(opcode.op);
+        assembly = i->parseInstruction(machineCode);
+    } else if (format == Format::j) {
+        JInstruction jinst;
+        i = &jinst;
+        assembly = i->parseInstruction(machineCode);
+    } else if (format == Format::r) {
+        RInstruction rinst;
+        i = &rinst;
         assembly = i->parseInstruction(machineCode);
     }
+    
     return assembly;
 }

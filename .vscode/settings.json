@@ -2,6 +2,9 @@
     "editor.formatOnSave": false,
     "files.associations": {
         "iosfwd": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "array": "cpp",
+        "string_view": "cpp",
+        "sstream": "cpp"
     }
 }

@@ -18,16 +18,10 @@ enum Format {
 class Disassembler
 {
   public:
-    Disassembler();
+    // Disassembler();
     string disassemble(string);
     Instruction *i;
 
-  protected:
-    map<int, Opcode> opcodes;
-    void populateOpcodes();
-    int binaryToDecimal(string bitString, int size);
-    string getOpcodeBitString(string instruction);
-    Opcode getOpcode(int opcode);
-    Opcode makeOpcode(string format, string op);
+  private:
     int getFormat(string);
 };
