@@ -1,7 +1,7 @@
 #include "disassembler.h"
 
 int Disassembler::getFormat(string machineCode) {
-    int opcodeDec = i->binaryToDecimal(machineCode.substr(0, 6), 6);
+    int opcodeDec = i->binaryToDecimal(machineCode.substr(0, 6));
     if (opcodeDec == 0) {
         return Format::r;
     } else if (opcodeDec == 2 || opcodeDec == 3) {

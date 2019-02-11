@@ -13,7 +13,9 @@ class Instruction {
         Register reg;
 
         Instruction();
-        int binaryToDecimal(string, int);
+        int binaryToDecimal(string bits, bool signedInt=false);
+        void twosComplementToUnsigned(string*);
+        void addOne(string*, int);
         string getOperationFromMap(string, int);
 
         string getOperation();

@@ -2,10 +2,10 @@
 
 string JInstruction::parseInstruction(string machineCode) {
     // Get opcode
-    int opDec = binaryToDecimal(machineCode.substr(0, 6), 6);
+    int opDec = binaryToDecimal(machineCode.substr(0, 6));
     string op = getOperationFromMap("j", opDec);
     // Get address
-    int address = binaryToDecimal(machineCode.substr(6, 32), 26);
+    int address = binaryToDecimal(machineCode.substr(6, 26), true);
 
     // Set values
     setOperation(op);

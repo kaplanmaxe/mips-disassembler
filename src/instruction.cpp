@@ -34,18 +34,51 @@ Instruction::Instruction() {
 
 // binaryToDecimal takes in a bit string and converts to
 // decimal.
-int Instruction::binaryToDecimal(string bits, int size) {
+int Instruction::binaryToDecimal(string bits, bool signedInt) {
+    bool negative = false;
+    if (signedInt) {
+        if (bits[0] == '1') {
+            negative = true;
+            twosComplementToUnsigned(&bits);
+            printf("bits: %s\n", bits.c_str());
+        }
+    }
+    
     int decimal = 0;
     const int base = 2;
-    for (int i = 0; i < size; i++) {
+    const unsigned int length = bits.length();
+    for (unsigned int i = 0; i < length; i++) {
         int value = 0;
-        int power = (size - 1) - i;
+        int power = (length - 1) - i;
         if (bits[i] == '1') {
             value = pow(base, power);
         }
         decimal += value;
     }
-    return decimal;
+    return negative ? decimal * -1 : decimal;
+}
+
+void Instruction::twosComplementToUnsigned(string* bits) {
+    // First we flip bits
+    for (unsigned int i = 0; i <= (*bits).length(); i++) {
+        if ((*bits)[i] == '1') {
+            (*bits)[i] = '0';
+        } else if ((*bits)[i] == '0') {
+            (*bits)[i] = '1';
+        }
+    }
+
+    // Now we add to get two's complement
+    addOne(bits, 15);
+}
+
+void Instruction::addOne(string* bits, int index) {
+    if ((*bits)[index] == '0') {
+        (*bits)[index] = '1';
+    } else {
+        (*bits)[index] = '0';
+        return addOne(bits, index-1);
+    }
 }
 
 string Instruction::getOperationFromMap(string format, int dec) {
