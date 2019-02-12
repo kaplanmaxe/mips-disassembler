@@ -4,8 +4,6 @@
 
 #define LENGTH 32
 #define ACTUAL_LENGTH 32 + 1
-#define false 0
-#define true 1
 
 // Checks that the char array is 32 bits long
 // and only has 0 and 1 in it.
