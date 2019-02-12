@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.6)
+project(MipsAssembler)
+set(CMAKE_CXX_STANDARD 11)
+file(GLOB SOURCES src/*.cpp)
+add_executable(mips-disassembler ${SOURCES})
