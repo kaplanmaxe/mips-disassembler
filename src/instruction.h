@@ -40,7 +40,7 @@ class Instruction {
         };
     
     private:
-        map<string, map<int, string>> operations;
+        map<string, map<int, string> > operations;
         string operation;
         string rs;
         string rt;

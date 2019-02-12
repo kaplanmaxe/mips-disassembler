@@ -1,7 +1,7 @@
 .PHONY: run
 
 CC   = g++
-OPTS = -lm -Wall
+OPTS = -Wall -std=c++14
 
 # Project name
 PROJECT = mips-disassemble
