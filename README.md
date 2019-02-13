@@ -1,4 +1,4 @@
-# MIPS Dissambler
+# MIPS Disassembler
 
 [![Build Status](https://travis-ci.com/kaplanmaxe/mips-disassembler.svg?branch=master)](https://travis-ci.com/kaplanmaxe/mips-disassembler)
 
