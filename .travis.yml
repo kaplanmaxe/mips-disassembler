@@ -1,5 +1,6 @@
 language: cpp
 
 script:
-  - cmake --build .
+  - cmake .
+  - make
   - ctest
