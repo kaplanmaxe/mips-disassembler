@@ -68,7 +68,7 @@ void Instruction::twosComplementToUnsigned(string* bits) {
     }
 
     // Now we add 1 to get two's complement
-    addOne(bits, 15);
+    addOne(bits, (*bits).length()-1);
 }
 
 void Instruction::addOne(string* bits, int index) {
